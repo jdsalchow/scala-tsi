@@ -39,10 +39,10 @@ object TSType extends DefaultTSTypes {
     * Case class will use [[fromCaseClass]]
     * Sealed traits/classes will use [[fromSealed]]
     */
-//  def getOrGenerate[T]: TSType[T] = macro Macros.getImplicitMappingOrGenerateDefault[T, TSType]
+  inline def getOrGenerate[T]: TSType[T] = Macros.getImplicitMappingOrGenerateDefault[T]
 
   /** Generate a typescript interface for a case class */
-//  def fromCaseClass[T]: TSIType[T] = macro Macros.generateInterfaceFromCaseClass[T, TSType]
+  inline def fromCaseClass[T]: TSIType[T] = Macros.generateInterfaceFromCaseClass[T]
 
   /** Generate a Typescript discriminated union from a scala sealed trait
     *
@@ -60,7 +60,7 @@ object TSType extends DefaultTSTypes {
     * `type AorB = A | B`
     * @see [Typescript docs on Discriminated Unions](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminating-unions)
     */
-//  def fromSealed[T]: TSNamedType[T] = macro Macros.generateUnionFromSealedTrait[T, TSType]
+    def fromSealed[T]: TSNamedType[T] = Macros.generateUnionFromSealedTrait[T]
 
   /** Uses the typescript type of Target whenever we're looking for the typescript type of Source
     * This will not generate a `type Source = Target` line like alias
@@ -145,7 +145,7 @@ object TSNamedType extends DefaultTSTypes {
     *
     * @see [[TSType.getOrGenerate]]
     */
-//  def getOrGenerate[T]: TSNamedType[T] = macro Macros.getImplicitMappingOrGenerateDefault[T, TSNamedType]
+  inline def getOrGenerate[T]: TSNamedType[T] = Macros.getImplicitMappingOrGenerateDefault[T].asInstanceOf[TSNamedType[T]]
 
   /** Uses the typescript type of Target whenever we're looking for the typescript type of Source
     * This will not generate a `type Source = Target` line like alias
@@ -175,7 +175,7 @@ object TSIType {
     *
     * @see [[TSType.getOrGenerate]]
     */
-//  def getOrGenerate[T]: TSIType[T] = macro Macros.getImplicitInterfaceMappingOrGenerateDefault[T, TSType, TSIType]
+  inline def getOrGenerate[T]: TSIType[T] = Macros.getImplicitInterfaceMappingOrGenerateDefault[T]
 
   /** Uses the typescript type of Target whenever we're looking for the typescript type of Source
     * This will not generate a `type Source = Target` line like alias
